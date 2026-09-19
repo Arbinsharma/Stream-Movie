@@ -11,25 +11,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-let selectedGenres = [];
-
+// Bug Fix: Toggle class directly instead of using an array
 function toggleGenre(button) {
-    const genreId = button.getAttribute('data-id');
-    if (selectedGenres.includes(genreId)) {
-        selectedGenres = selectedGenres.filter(id => id !== genreId);
-        button.classList.remove('selected');
-    } else {
-        selectedGenres.push(genreId);
-        button.classList.add('selected');
-    }
+    button.classList.toggle('selected');
 }
 
+// Bug Fix: Check the DOM directly to see what is selected
 function saveUserGenres() {
-    if (selectedGenres.length === 0) {
-        alert("Please select at least one genre!");
+    const selectedButtons = document.querySelectorAll('.genre-tag.selected');
+    
+    if (selectedButtons.length === 0) {
+        alert("Bro, please select at least one genre!");
         return;
     }
-    const genreString = selectedGenres.join(',');
+
+    // Map through selected buttons and grab their IDs
+    const genreArray = Array.from(selectedButtons).map(btn => btn.getAttribute('data-id'));
+    const genreString = genreArray.join(',');
+    
     localStorage.setItem('userPreferences', genreString);
     document.getElementById('welcome-modal').classList.add('hidden');
     loadPersonalizedFeed(genreString);
@@ -46,6 +45,8 @@ async function loadPersonalizedFeed(genres) {
         console.error("Error fetching personalized feed", error);
     }
 }
+
+// (Keep the rest of your script.js exactly the same below this line: Smart Navbar, Search, Apply Filters, Display Movies, Play/Close Movie)
 
 // 3. Smart Navbar Scroll Behavior
 let lastScrollY = window.scrollY;

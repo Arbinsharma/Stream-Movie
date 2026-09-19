@@ -1,3 +1,16 @@
+/* BOLD TEXT UPGRADES */
+body {
+    font-weight: 700; /* Makes standard text bold */
+}
+
+h1, h2, h3, .logo, .section-title, .modal-title {
+    font-weight: 900 !important; /* Maximum thickness for titles */
+    letter-spacing: 0.5px;
+}
+
+.genre-tag, button, input {
+    font-weight: 800 !important; /* Extra bold buttons */
+}
 :root {
     --bg-dark: #0B0C10;
     --bg-light: #1F2833;
