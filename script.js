@@ -1,37 +1,76 @@
 const nexstreamKey = 'nx_6bf33af689075b12885fc9faa5532341';
 const searchApiKey = '3fd2be6f0c70a2a598f084ddfb75487c';
 
-// Triggers a random page of popular movies on load
+// 1. Initialize Onboarding & Preferences
 document.addEventListener('DOMContentLoaded', () => {
-    loadRandomFeed();
+    const savedGenres = localStorage.getItem('userPreferences');
+    if (!savedGenres) {
+        document.getElementById('welcome-modal').classList.remove('hidden');
+    } else {
+        loadPersonalizedFeed(savedGenres);
+    }
 });
 
-// Randomize the feed
-async function loadRandomFeed() {
-    const randomPage = Math.floor(Math.random() * 15) + 1; // Pulls a random page from TMDB
+let selectedGenres = [];
+
+function toggleGenre(button) {
+    const genreId = button.getAttribute('data-id');
+    if (selectedGenres.includes(genreId)) {
+        selectedGenres = selectedGenres.filter(id => id !== genreId);
+        button.classList.remove('selected');
+    } else {
+        selectedGenres.push(genreId);
+        button.classList.add('selected');
+    }
+}
+
+function saveUserGenres() {
+    if (selectedGenres.length === 0) {
+        alert("Please select at least one genre!");
+        return;
+    }
+    const genreString = selectedGenres.join(',');
+    localStorage.setItem('userPreferences', genreString);
+    document.getElementById('welcome-modal').classList.add('hidden');
+    loadPersonalizedFeed(genreString);
+}
+
+// 2. Fetch Personalized Feed
+async function loadPersonalizedFeed(genres) {
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${searchApiKey}&sort_by=popularity.desc&page=${randomPage}`);
+        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${searchApiKey}&sort_by=popularity.desc&with_genres=${genres}`);
         const data = await res.json();
         document.getElementById('grid-title').innerText = "Recommended For You";
         displayMovies(data.results);
     } catch (error) {
-        console.error("Error fetching feed", error);
+        console.error("Error fetching personalized feed", error);
     }
 }
 
-// Toggle Filter Menu
+// 3. Smart Navbar Scroll Behavior
+let lastScrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    // Hide nav if scrolling down and past 100px. Show if scrolling up.
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+        navbar.style.transform = 'translateY(-100%)';
+    } else {
+        navbar.style.transform = 'translateY(0)';
+    }
+    lastScrollY = window.scrollY;
+});
+
+// 4. Standard Functions (Search, Filter, Display, Play)
 function toggleFilters() {
     document.getElementById('filter-menu').classList.toggle('hidden');
 }
 
-// Apply Advanced Filters
 async function applyFilters() {
     const genre = document.getElementById('genreFilter').value;
     const language = document.getElementById('languageFilter').value;
     const year = document.getElementById('yearFilter').value;
 
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=${searchApiKey}&sort_by=popularity.desc`;
-    
     if (genre) url += `&with_genres=${genre}`;
     if (language) url += `&with_original_language=${language}`;
     if (year) url += `&primary_release_year=${year}`;
@@ -41,13 +80,12 @@ async function applyFilters() {
         const data = await res.json();
         document.getElementById('grid-title').innerText = "Filtered Results";
         displayMovies(data.results);
-        toggleFilters(); // Close menu after searching
+        toggleFilters(); 
     } catch (error) {
         console.error("Filter error", error);
     }
 }
 
-// Standard Search
 async function searchMovies() {
     const query = document.getElementById('searchInput').value.trim();
     if (!query) return;
@@ -62,23 +100,15 @@ async function searchMovies() {
     }
 }
 
-// Render 3D Cards
 function displayMovies(movies) {
     const grid = document.getElementById('movieGrid');
     grid.innerHTML = ''; 
 
-    if(movies.length === 0) {
-        grid.innerHTML = '<p style="color:var(--cyan-accent);">No movies found matching criteria.</p>';
-        return;
-    }
-
-    movies.forEach((movie, index) => {
+    movies.forEach(movie => {
         if (!movie.poster_path) return;
 
         const card = document.createElement('div');
         card.className = 'movie-card';
-        // Slight stagger animation delay for each card
-        card.style.animationDelay = `${index * 0.05}s`;
         card.onclick = () => playMovie(movie.id);
 
         const img = document.createElement('img');
@@ -91,22 +121,17 @@ function displayMovies(movies) {
     });
 }
 
-// 3D Player Launch
 function playMovie(tmdbId) {
     const playerContainer = document.getElementById('player-container');
     const videoWrapper = document.getElementById('video-wrapper');
-    
     const streamUrl = `https://api.codespecters.com/embed/movie/${tmdbId}?apikey=${nexstreamKey}`;
     videoWrapper.innerHTML = `<iframe src="${streamUrl}" allowfullscreen></iframe>`;
-    
     playerContainer.classList.remove('hidden');
 }
 
-// Close Player
 function closePlayer() {
     const playerContainer = document.getElementById('player-container');
     const videoWrapper = document.getElementById('video-wrapper');
-    
     videoWrapper.innerHTML = ''; 
     playerContainer.classList.add('hidden');
 }

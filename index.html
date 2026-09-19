@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Movie | Ultimate</title>
+    <title>Stream Movie</title>
+    <!-- Permanent Favicon -->
     <link rel="icon" type="image/jpeg" href="image.jpg">
+    <!-- Bold, attractive Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
+
+    <!-- Onboarding Genre Modal -->
+    <div id="welcome-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Welcome to Stream Movie! 🍿</h2>
+            <p>Select your favorite genres to personalize your feed.</p>
+            <div class="genre-grid">
+                <label><input type="checkbox" class="genre-checkbox" value="28"> Action</label>
+                <label><input type="checkbox" class="genre-checkbox" value="35"> Comedy</label>
+                <label><input type="checkbox" class="genre-checkbox" value="27"> Horror</label>
+                <label><input type="checkbox" class="genre-checkbox" value="878"> Sci-Fi</label>
+                <label><input type="checkbox" class="genre-checkbox" value="10749"> Romance</label>
+                <label><input type="checkbox" class="genre-checkbox" value="16"> Animation</label>
+            </div>
+            <button onclick="saveUserGenres()" class="save-btn">Save & Enter</button>
+        </div>
+    </div>
+
+    <nav class="navbar" id="navbar">
         <a href="#" class="logo" onclick="location.reload(); return false;">Stream Movie</a>
-        
         <div class="nav-controls">
             <button class="filter-toggle" onclick="toggleFilters()">⚙️ Filters</button>
             <div class="search-box">
@@ -21,20 +41,11 @@
         </div>
     </nav>
 
-    <!-- Sleek Dropdown Filter Menu -->
     <div id="filter-menu" class="filter-panel hidden">
-        <select id="genreFilter">
-            <option value="">All Genres</option>
-            <option value="28">Action</option>
-            <option value="35">Comedy</option>
-            <option value="27">Horror</option>
-            <option value="878">Sci-Fi</option>
-        </select>
         <select id="languageFilter">
             <option value="">Any Language</option>
             <option value="en">English</option>
             <option value="hi">Hindi</option>
-            <option value="ko">Korean</option>
         </select>
         <select id="yearFilter">
             <option value="">Any Year</option>
@@ -45,32 +56,31 @@
         <button class="apply-filters" onclick="applyFilters()">Apply Filters</button>
     </div>
 
-    <!-- 3D Video Player Modal -->
+    <!-- Video Player -->
     <div id="player-container" class="hidden">
         <div class="player-content">
-            <button class="close-btn" onclick="closePlayer()">✕ Close</button>
+            <button class="close-btn" onclick="closePlayer()">✕ Close Player</button>
             <div class="iframe-wrapper" id="video-wrapper"></div>
         </div>
     </div>
 
-    <!-- Movie Grid -->
+    <!-- Main Content -->
     <div id="main-content">
-        <h2 class="section-title" id="grid-title">Discover</h2>
-        <div class="movie-grid" id="movieGrid">
-            <!-- JavaScript will inject 3D movie cards here -->
-        </div>
+        <h2 class="section-title" id="grid-title">Your Personalized Feed</h2>
+        <div class="movie-grid" id="movieGrid"></div>
     </div>
 
-    <!-- About Me Section (Vertical Layout) -->
+    <!-- About Me Section -->
     <section id="about-section" class="about-section">
         <div class="about-card">
             <div class="avatar-container">
-                <img src="image1.jpg" alt="Prashant Bhusal Avatar" class="ai-avatar" onerror="this.src='https://via.placeholder.com/150/45A29E/0B0C10?text=Avatar'">
+                <!-- Explicitly calling image1.jpg for your Avatar -->
+                <img src="image1.jpg" alt="Prashant Bhusal" class="ai-avatar">
             </div>
             <div class="about-text">
                 <h2>Prashant Bhusal / Arbin</h2>
                 <h3 class="subtitle">15-Year-Old Developer & Security Researcher</h3>
-                <p>Currently in the 9th grade, I am deeply passionate about coding, system architecture, and cybersecurity. I build complex platforms from scratch and specialize in finding their limits having successfully conducted advanced security assessments and identified critical vulnerabilities across 16 different school networks (including penetrating my own school's systems twice to expose security flaws).</p>
+                <p>Currently in the 9th grade, I am deeply passionate about coding, system architecture, and cybersecurity. I build complex platforms from scratch and specialize in finding their limits—having successfully conducted advanced security assessments and identified critical vulnerabilities across 16 different school networks (including penetrating my own school's systems twice to expose security flaws).</p>
                 <div class="about-buttons">
                     <a href="https://aifail.pages.dev" target="_blank" class="btn referral-btn">Visit My AI Project</a>
                     <a href="https://www.facebook.com/share/1HuEXVruLV/" target="_blank" class="btn fb-btn">Facebook Profile</a>
