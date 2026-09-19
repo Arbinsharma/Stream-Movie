@@ -1,3 +1,19 @@
+.iframe-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    width: 100%;
+}
+
+.iframe-wrapper iframe {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100% !important; 
+    height: 100% !important;
+    border-radius: 8px;
+    border: none;
+}
 /* BOLD TEXT UPGRADES */
 body {
     font-weight: 700; /* Makes standard text bold */

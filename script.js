@@ -95,8 +95,12 @@ function displayMovies(movies) {
 function playMovie(tmdbId) {
     const playerContainer = document.getElementById('player-container');
     const videoWrapper = document.getElementById('video-wrapper');
+    
     const streamUrl = `https://api.codespecters.com/embed/movie/${tmdbId}?apikey=${nexstreamKey}`;
-    videoWrapper.innerHTML = `<iframe src="${streamUrl}" allowfullscreen></iframe>`;
+    
+    // Forced width/height attributes and full screen permissions to ensure controls appear
+    videoWrapper.innerHTML = `<iframe src="${streamUrl}" width="100%" height="100%" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`;
+    
     playerContainer.classList.remove('hidden');
 }
 
