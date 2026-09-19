@@ -5,29 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stream Movie | Ultimate</title>
     <link rel="icon" type="image/jpeg" href="image.jpg">
-    <!-- Pulling in the thickest, boldest font weights available (700, 800, 900) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Onboarding Genre Modal -->
-    <div id="welcome-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>Welcome to Stream Movie! 🍿</h2>
-            <p>Select your favorite genres to personalize your feed.</p>
-            <div class="genre-grid">
-                <label><input type="checkbox" class="genre-checkbox" value="28"> Action</label>
-                <label><input type="checkbox" class="genre-checkbox" value="35"> Comedy</label>
-                <label><input type="checkbox" class="genre-checkbox" value="27"> Horror</label>
-                <label><input type="checkbox" class="genre-checkbox" value="878"> Sci-Fi</label>
-                <label><input type="checkbox" class="genre-checkbox" value="10749"> Romance</label>
-                <label><input type="checkbox" class="genre-checkbox" value="16"> Animation</label>
-            </div>
-            <button onclick="saveUserGenres()" class="save-btn">Save & Enter</button>
-        </div>
-    </div>
-
+    <!-- Smart Navigation Bar -->
     <nav class="navbar" id="navbar">
         <a href="#" class="logo" onclick="location.reload(); return false;">Stream Movie</a>
         <div class="nav-controls">
@@ -40,11 +22,20 @@
         </div>
     </nav>
 
+    <!-- Filter Menu -->
     <div id="filter-menu" class="filter-panel hidden">
+        <select id="genreFilter">
+            <option value="">All Genres</option>
+            <option value="28">Action</option>
+            <option value="35">Comedy</option>
+            <option value="27">Horror</option>
+            <option value="878">Sci-Fi</option>
+        </select>
         <select id="languageFilter">
             <option value="">Any Language</option>
             <option value="en">English</option>
             <option value="hi">Hindi</option>
+            <option value="ko">Korean</option>
         </select>
         <select id="yearFilter">
             <option value="">Any Year</option>
@@ -52,20 +43,20 @@
             <option value="2025">2025</option>
             <option value="2024">2024</option>
         </select>
-        <button class="apply-filters" onclick="applyFilters()">Apply Filters</button>
+        <button class="apply-filters" onclick="applyFilters()">Apply</button>
     </div>
 
     <!-- Video Player -->
     <div id="player-container" class="hidden">
         <div class="player-content">
-            <button class="close-btn" onclick="closePlayer()">✕ Close Player</button>
+            <button class="close-btn" onclick="closePlayer()">✕ Close</button>
             <div class="iframe-wrapper" id="video-wrapper"></div>
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Movie Grid -->
     <div id="main-content">
-        <h2 class="section-title" id="grid-title">Your Personalized Feed</h2>
+        <h2 class="section-title" id="grid-title">Trending Now</h2>
         <div class="movie-grid" id="movieGrid"></div>
     </div>
 
@@ -73,15 +64,14 @@
     <section id="about-section" class="about-section">
         <div class="about-card">
             <div class="avatar-container">
-                <!-- Explicitly calling image1.jpg for your Avatar -->
-                <img src="image1.jpg" alt="Prashant Bhusal" class="ai-avatar">
+                <img src="image1.jpg" alt="Prashant Bhusal Avatar" class="ai-avatar" onerror="this.src='https://via.placeholder.com/150/66FCF1/0B0C10?text=Avatar'">
             </div>
             <div class="about-text">
                 <h2>Prashant Bhusal / Arbin</h2>
                 <h3 class="subtitle">15-Year-Old Developer & Security Researcher</h3>
-                <p>Currently in the 9th grade, I am deeply passionate about coding, system architecture, and cybersecurity. I build complex platforms from scratch and specialize in finding their limits—having successfully conducted advanced security assessments and identified critical vulnerabilities across 16 different school networks (including penetrating my own school's systems twice to expose security flaws).</p>
+                <p>Currently in the 9th grade, I build advanced platforms from scratch and specialize in cybersecurity. I have successfully conducted security assessments across 16 school networks—including identifying vulnerabilities in my own school's systems.</p>
                 <div class="about-buttons">
-                    <a href="https://aifail.pages.dev" target="_blank" class="btn referral-btn">Visit My AI Project</a>
+                    <a href="https://aifail.pages.dev" target="_blank" class="btn referral-btn">My AI Project</a>
                     <a href="https://www.facebook.com/share/1HuEXVruLV/" target="_blank" class="btn fb-btn">Facebook Profile</a>
                 </div>
             </div>

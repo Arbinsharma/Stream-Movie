@@ -1,58 +1,27 @@
 const nexstreamKey = 'nx_6bf33af689075b12885fc9faa5532341';
 const searchApiKey = '3fd2be6f0c70a2a598f084ddfb75487c';
 
-// 1. Initialize Onboarding & Preferences
+// 1. Instantly load a randomized feed on startup
 document.addEventListener('DOMContentLoaded', () => {
-    const savedGenres = localStorage.getItem('userPreferences');
-    if (!savedGenres) {
-        document.getElementById('welcome-modal').classList.remove('hidden');
-    } else {
-        loadPersonalizedFeed(savedGenres);
-    }
+    loadRandomFeed();
 });
 
-// Bug Fix: Toggle class directly instead of using an array
-function toggleGenre(button) {
-    button.classList.toggle('selected');
-}
-
-// Bug Fix: Check the DOM directly to see what is selected
-function saveUserGenres() {
-    const selectedButtons = document.querySelectorAll('.genre-tag.selected');
-    
-    if (selectedButtons.length === 0) {
-        alert("Bro, please select at least one genre!");
-        return;
-    }
-
-    // Map through selected buttons and grab their IDs
-    const genreArray = Array.from(selectedButtons).map(btn => btn.getAttribute('data-id'));
-    const genreString = genreArray.join(',');
-    
-    localStorage.setItem('userPreferences', genreString);
-    document.getElementById('welcome-modal').classList.add('hidden');
-    loadPersonalizedFeed(genreString);
-}
-
-// 2. Fetch Personalized Feed
-async function loadPersonalizedFeed(genres) {
+async function loadRandomFeed() {
+    const randomPage = Math.floor(Math.random() * 10) + 1; 
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${searchApiKey}&sort_by=popularity.desc&with_genres=${genres}`);
+        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${searchApiKey}&sort_by=popularity.desc&page=${randomPage}`);
         const data = await res.json();
-        document.getElementById('grid-title').innerText = "Recommended For You";
+        document.getElementById('grid-title').innerText = "Trending Now";
         displayMovies(data.results);
     } catch (error) {
-        console.error("Error fetching personalized feed", error);
+        console.error("Error fetching feed", error);
     }
 }
 
-// (Keep the rest of your script.js exactly the same below this line: Smart Navbar, Search, Apply Filters, Display Movies, Play/Close Movie)
-
-// 3. Smart Navbar Scroll Behavior
+// 2. Smart Navbar Scroll Behavior
 let lastScrollY = window.scrollY;
 window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
-    // Hide nav if scrolling down and past 100px. Show if scrolling up.
     if (window.scrollY > lastScrollY && window.scrollY > 100) {
         navbar.style.transform = 'translateY(-100%)';
     } else {
@@ -61,7 +30,7 @@ window.addEventListener('scroll', () => {
     lastScrollY = window.scrollY;
 });
 
-// 4. Standard Functions (Search, Filter, Display, Play)
+// 3. Filters and Search
 function toggleFilters() {
     document.getElementById('filter-menu').classList.toggle('hidden');
 }
@@ -101,6 +70,7 @@ async function searchMovies() {
     }
 }
 
+// 4. Display & Player Logic
 function displayMovies(movies) {
     const grid = document.getElementById('movieGrid');
     grid.innerHTML = ''; 
