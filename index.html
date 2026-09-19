@@ -1,1 +1,47 @@
-<h1> Hello Tin this I will Add Movie here later </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Movie</title>
+    <!-- Permanent Favicon -->
+    <link rel="icon" type="image/jpeg" href="image.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <!-- Clicking this resets/reloads to the home screen -->
+        <a href="#" class="logo" onclick="location.reload(); return false;">Stream Movie</a>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search movies...">
+            <button onclick="searchMovies()">Search</button>
+        </div>
+    </nav>
+
+    <!-- Video Player Area (Hidden until a movie is clicked) -->
+    <div id="player-container" class="hidden">
+        <button class="close-btn" onclick="closePlayer()">✕ Close Player</button>
+        <div class="iframe-wrapper" id="video-wrapper"></div>
+    </div>
+
+    <!-- Main Movie Grid -->
+    <div id="main-content">
+        <h2 class="section-title">Trending Now</h2>
+        <div class="movie-grid" id="movieGrid">
+            <!-- Movie posters will load here via JavaScript -->
+        </div>
+    </div>
+
+    <!-- About Me Section -->
+    <section class="about-section">
+        <h2>About Me</h2>
+        <p>Hi, my name is <strong>Prashant Bhusal / Arbin</strong>. I'm a 15-year-old boy currently studying in the 9th grade. I am deeply passionate about coding and technology, which led me to create this website entirely from scratch.</p>
+        <div class="about-buttons">
+            <a href="https://aifail.pages.dev" target="_blank" class="btn referral-btn">Visit My AI Project</a>
+            <a href="https://www.facebook.com/share/1HuEXVruLV/" target="_blank" class="btn fb-btn">My Facebook Profile</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

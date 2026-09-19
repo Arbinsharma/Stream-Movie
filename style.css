@@ -1,0 +1,219 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #141414; /* Standard Dark Theme */
+    color: white;
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    color: #e50914; /* Netflix Red */
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Search Bar */
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #333;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 250px;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.search-box button:hover {
+    background-color: #f40612;
+}
+
+/* Movie Grid Section */
+#main-content {
+    padding: 20px 40px;
+    min-height: 50vh;
+}
+
+.section-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.movie-card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Video Player */
+.hidden {
+    display: none !important;
+}
+
+#player-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #000;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+.close-btn {
+    align-self: flex-end;
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.close-btn:hover {
+    color: #e50914;
+}
+
+.iframe-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.iframe-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* About Me Section */
+.about-section {
+    background-color: #080808;
+    padding: 50px 40px;
+    text-align: center;
+    border-top: 2px solid #222;
+    margin-top: 40px;
+}
+
+.about-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #e50914;
+}
+
+.about-section p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    color: #ccc;
+}
+
+.about-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 25px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.referral-btn {
+    background-color: #333;
+    border: 1px solid #fff;
+}
+
+.fb-btn {
+    background-color: #1877F2;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    .search-box input {
+        width: 100%;
+    }
+    #main-content {
+        padding: 15px;
+    }
+}
