@@ -70,7 +70,7 @@ async function searchMovies() {
     }
 }
 
-// 4. Display & Player Logic
+// 4. Display Movies
 function displayMovies(movies) {
     const grid = document.getElementById('movieGrid');
     grid.innerHTML = ''; 
@@ -92,21 +92,10 @@ function displayMovies(movies) {
     });
 }
 
+// 5. Open Player in New Tab
 function playMovie(tmdbId) {
-    const playerContainer = document.getElementById('player-container');
-    const videoWrapper = document.getElementById('video-wrapper');
-    
     const streamUrl = `https://api.codespecters.com/embed/movie/${tmdbId}?apikey=${nexstreamKey}`;
     
-    // Forced width/height attributes and full screen permissions to ensure controls appear
-    videoWrapper.innerHTML = `<iframe src="${streamUrl}" width="100%" height="100%" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`;
-    
-    playerContainer.classList.remove('hidden');
-}
-
-function closePlayer() {
-    const playerContainer = document.getElementById('player-container');
-    const videoWrapper = document.getElementById('video-wrapper');
-    videoWrapper.innerHTML = ''; 
-    playerContainer.classList.add('hidden');
+    // Opens the video stream in a completely new, full-screen ready tab
+    window.open(streamUrl, '_blank');
 }
