@@ -92,8 +92,7 @@ function displayMovies(movies) {
     });
 }
 
-// 5. Open YOUR Dedicated Player Page in a New Tab
+// Open YOUR Dedicated Player Page in a New Tab
 function playMovie(tmdbId) {
-    // Sends the user to your new watch.html page and passes the Movie ID secretly in the URL
     window.open(`watch.html?id=${tmdbId}`, '_blank');
 }
