@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stream Movie | Ultimate</title>
+    <!-- Permanent Favicon -->
     <link rel="icon" type="image/jpeg" href="image.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Importing Bebas Neue (Logo), Pacifico (Watermark), and Extra Bold Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Smart Navigation Bar -->
+    <!-- Smart Navigation Bar with Watermark -->
     <nav class="navbar" id="navbar">
-        <a href="#" class="logo" onclick="location.reload(); return false;">Stream Movie</a>
+        <div class="logo-wrapper">
+            <a href="#" class="logo-main" onclick="location.reload(); return false;">STREAM MOVIE</a>
+            <span class="logo-watermark">Arbin</span>
+        </div>
+        
         <div class="nav-controls">
             <button class="filter-toggle" onclick="toggleFilters()">⚙️ Filters</button>
             <div class="search-box">
-                <!-- Added Enter Key Support Here -->
                 <input type="text" id="searchInput" placeholder="Search movies..." onkeypress="if(event.key === 'Enter') searchMovies()">
                 <button onclick="searchMovies()">Search</button>
             </div>
@@ -71,6 +76,7 @@
         </div>
     </section>
 
+    <!-- JavaScript Link -->
     <script src="script.js"></script>
 
     <!-- AD SCRIPTS PLACED AT THE BOTTOM FOR MAX PERFORMANCE -->

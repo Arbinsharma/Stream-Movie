@@ -13,7 +13,7 @@
     scroll-behavior: smooth;
 }
 
-/* BOLD TEXT UPGRADES */
+/* Base Bold Styles */
 body {
     background: var(--bg-dark);
     color: var(--text-main);
@@ -22,13 +22,52 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3, .logo, .section-title, .modal-title {
+h1, h2, h3, .section-title {
     font-weight: 900 !important;
     letter-spacing: 0.5px;
 }
 
-.genre-tag, button {
+button, input {
     font-weight: 800 !important;
+}
+
+/* --- LOGO & WATERMARK --- */
+.logo-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-right: 30px; 
+}
+
+.logo-main {
+    font-family: 'Bebas Neue', sans-serif; 
+    color: var(--cyan-accent); 
+    font-size: 38px;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.logo-watermark {
+    position: absolute;
+    top: -10px;
+    right: 0px;
+    font-family: 'Pacifico', cursive; 
+    font-size: 22px; 
+    color: var(--cyan-accent);
+    opacity: 0.8; 
+    text-shadow: 0 0 15px var(--cyan-accent), 0 0 30px var(--cyan-accent);
+    pointer-events: none; 
+    animation: arbinBlastCycle 8s infinite;
+}
+
+/* Watermark Animation Cycle */
+@keyframes arbinBlastCycle {
+    0%, 10% { opacity: 0.8; transform: scale(1); } 
+    25% { opacity: 0.2; transform: scale(1); } 
+    40% { opacity: 0.8; transform: scale(1); } 
+    55% { opacity: 0.2; transform: scale(1); } 
+    70% { opacity: 0; transform: scale(3) translateY(-10px); } 
+    75% { opacity: 0; transform: scale(0) translateY(10px); } 
+    85%, 100% { opacity: 0.8; transform: scale(1); } 
 }
 
 /* Smart Navbar */
@@ -45,14 +84,6 @@ h1, h2, h3, .logo, .section-title, .modal-title {
     width: 100%;
     z-index: 100;
     transition: transform 0.4s ease-in-out;
-}
-
-.logo {
-    color: var(--cyan-accent);
-    font-size: 30px;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
 }
 
 .nav-controls {
@@ -96,7 +127,7 @@ h1, h2, h3, .logo, .section-title, .modal-title {
     color: white;
     border-radius: 8px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 900 !important; /* Makes typed text ultra bold */
+    font-weight: 900 !important;
     outline: none;
     width: 250px;
 }
@@ -153,7 +184,6 @@ h1, h2, h3, .logo, .section-title, .modal-title {
     gap: 20px;
 }
 
-/* Smooth, Attractive Card Animations */
 .movie-card {
     position: relative;
     cursor: pointer;
@@ -224,8 +254,16 @@ h1, h2, h3, .logo, .section-title, .modal-title {
 .referral-btn { background: var(--cyan-accent); }
 .fb-btn { background: #1877F2; color: white; }
 
-/* Mobile View Fixes - Search Bar Now Works on Phone! */
+/* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
+    .logo-main {
+        font-size: 32px; 
+    }
+    .logo-watermark {
+        font-size: 18px; 
+        top: -8px;
+        right: -10px;
+    }
     .navbar {
         flex-direction: column;
         padding: 15px;
@@ -252,7 +290,7 @@ h1, h2, h3, .logo, .section-title, .modal-title {
         height: 220px;
     }
     #main-content {
-        padding-top: 180px; /* Adjusted so the stacked phone navbar doesn't cover movies */
+        padding-top: 180px; 
     }
     .filter-panel {
         top: 150px;

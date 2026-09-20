@@ -92,10 +92,8 @@ function displayMovies(movies) {
     });
 }
 
-// 5. Open Player in New Tab
+// 5. Open YOUR Dedicated Player Page in a New Tab
 function playMovie(tmdbId) {
-    const streamUrl = `https://api.codespecters.com/embed/movie/${tmdbId}?apikey=${nexstreamKey}`;
-    
-    // Opens the video stream in a completely new, full-screen ready tab
-    window.open(streamUrl, '_blank');
+    // Sends the user to your new watch.html page and passes the Movie ID secretly in the URL
+    window.open(`watch.html?id=${tmdbId}`, '_blank');
 }
