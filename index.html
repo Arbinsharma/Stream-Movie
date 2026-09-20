@@ -15,7 +15,8 @@
         <div class="nav-controls">
             <button class="filter-toggle" onclick="toggleFilters()">⚙️ Filters</button>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search movies...">
+                <!-- Added Enter Key Support Here -->
+                <input type="text" id="searchInput" placeholder="Search movies..." onkeypress="if(event.key === 'Enter') searchMovies()">
                 <button onclick="searchMovies()">Search</button>
             </div>
             <a href="#about-section" class="nav-about-link">About Me</a>
