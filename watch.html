@@ -12,15 +12,26 @@
             background-color: #000; overflow: hidden;
         }
         
+        /* Top Navigation Bar for Player Controls */
+        .player-nav {
+            position: absolute; top: 0; left: 0; width: 100%; height: 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; box-sizing: border-box; z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+        }
+
         .back-btn {
-            position: absolute; top: 15px; left: 15px; z-index: 1000;
             background: #ff1a1a; color: #fff; border: none; padding: 10px 20px;
             font-family: 'Montserrat', sans-serif; font-weight: 800; border-radius: 8px; 
             cursor: pointer; text-decoration: none; opacity: 0.8; transition: 0.3s;
             box-shadow: 0 0 10px rgba(255, 26, 26, 0.5);
         }
-        .back-btn:hover {
-            opacity: 1; box-shadow: 0 0 20px #ff1a1a;
+        .back-btn:hover { opacity: 1; box-shadow: 0 0 20px #ff1a1a; }
+
+        .server-select {
+            background: #111; color: #66FCF1; border: 2px solid #45A29E;
+            padding: 10px; border-radius: 8px; font-family: 'Montserrat', sans-serif;
+            font-weight: 800; cursor: pointer; outline: none;
         }
 
         iframe {
@@ -28,18 +39,28 @@
             position: absolute; top: 0; left: 0; z-index: 1;
         }
 
-        /* The Invisible Ad Shield */
+        /* Ad Shield covers the video, but NOT the top navigation buttons */
         #ad-shield {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 60px; left: 0; width: 100%; height: calc(100% - 60px);
             z-index: 999; cursor: pointer;
         }
     </style>
 </head>
 <body>
     
-    <a href="index.html" class="back-btn">⬅ Back to Home</a>
+    <!-- Top Player Controls -->
+    <div class="player-nav">
+        <a href="index.html" class="back-btn">⬅ Back to Home</a>
+        <select class="server-select" id="serverPicker" onchange="switchServer()">
+            <option value="vidsrc">Server 1 (VidSrc - Auto/Multi-Sub)</option>
+            <option value="vidsrcpro">Server 2 (VidSrc Pro - Fast)</option>
+            <option value="super">Server 3 (SuperEmbed - Multi-Language)</option>
+            <option value="auto">Server 4 (AutoEmbed - Alt Server)</option>
+            <option value="nex">Server 5 (NexStream API)</option>
+        </select>
+    </div>
     
-    <!-- This invisible layer absorbs the first click, triggers the ad, then deletes itself -->
+    <!-- Invisible Ad Shield (Triggers 1 pop-under then vanishes) -->
     <div id="ad-shield" onclick="this.remove();"></div>
     
     <div id="video-wrapper"></div>
@@ -47,17 +68,30 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const tmdbId = urlParams.get('id');
+        const nexstreamKey = 'nx_6bf33af689075b12885fc9faa5532341';
         
-        if (tmdbId) {
-            const streamUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
-            
+        function switchServer() {
+            const server = document.getElementById('serverPicker').value;
+            let streamUrl = '';
+
+            if (server === 'vidsrc') streamUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
+            if (server === 'vidsrcpro') streamUrl = `https://vidsrc.pro/embed/movie/${tmdbId}`;
+            if (server === 'super') streamUrl = `https://multiembed.mov/?video_id=${tmdbId}&tmdb=1`;
+            if (server === 'auto') streamUrl = `https://player.autoembed.cc/embed/movie/${tmdbId}`;
+            if (server === 'nex') streamUrl = `https://api.codespecters.com/embed/movie/${tmdbId}?apikey=${nexstreamKey}`;
+
             document.getElementById('video-wrapper').innerHTML = `<iframe src="${streamUrl}" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`;
+        }
+
+        // Load default server on startup
+        if (tmdbId) {
+            switchServer();
         } else {
             document.getElementById('video-wrapper').innerHTML = '<h2 style="color:red; text-align:center; margin-top:20%; font-family:sans-serif;">Error: Could not load video.</h2>';
         }
     </script>
 
-    <!-- Your Ad Scripts -->
+    <!-- Ad Scripts -->
     <script src="https://quge5.com/88/tag.min.js" data-zone="283318" async data-cfasync="false"></script>
     <script>(function(s){s.dataset.zone='11842005',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script>(function(s){s.dataset.zone='11842006',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>

@@ -37,13 +37,19 @@ function toggleFilters() {
 
 async function applyFilters() {
     const genre = document.getElementById('genreFilter').value;
-    const language = document.getElementById('languageFilter').value;
+    const country = document.getElementById('countryFilter').value;
     const year = document.getElementById('yearFilter').value;
 
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=${searchApiKey}&sort_by=popularity.desc`;
+    
     if (genre) url += `&with_genres=${genre}`;
-    if (language) url += `&with_original_language=${language}`;
-    if (year) url += `&primary_release_year=${year}`;
+    if (country) url += `&with_origin_country=${country}`;
+    
+    if (year === "2010" || year === "2000") {
+        url += `&primary_release_date.gte=${year}-01-01&primary_release_date.lte=${parseInt(year)+9}-12-31`;
+    } else if (year) {
+        url += `&primary_release_year=${year}`;
+    }
 
     try {
         const res = await fetch(url);
@@ -92,7 +98,7 @@ function displayMovies(movies) {
     });
 }
 
-// Open YOUR Dedicated Player Page in a New Tab
+// 5. Open Dedicated Player Page in a New Tab
 function playMovie(tmdbId) {
     window.open(`watch.html?id=${tmdbId}`, '_blank');
 }

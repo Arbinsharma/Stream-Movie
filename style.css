@@ -50,14 +50,13 @@ button, input {
     position: absolute;
     top: -12px;
     right: 0px;
-    font-family: 'Permanent Marker', cursive; /* Less curly, more street style */
+    font-family: 'Permanent Marker', cursive; 
     font-size: 24px; 
-    color: #ff1a1a; /* Intense Neon Red */
-    opacity: 0.9; /* Increased visibility */
-    /* Triple layered red shadow for max glow */
+    color: #ff1a1a; 
+    opacity: 0.9; 
     text-shadow: 0 0 10px #ff1a1a, 0 0 20px #ff1a1a, 0 0 35px #ff1a1a;
     pointer-events: none; 
-    z-index: 150; /* Forces it above all other elements */
+    z-index: 150; 
     animation: arbinBlastCycle 8s infinite;
 }
 
@@ -157,6 +156,7 @@ button, input {
     display: flex;
     gap: 15px;
     justify-content: center;
+    flex-wrap: wrap;
     z-index: 99;
 }
 
