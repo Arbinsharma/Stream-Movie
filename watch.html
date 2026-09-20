@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watching Movie...</title>
+    <link rel="icon" type="image/jpeg" href="image.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background-color: #000; overflow: hidden;
+        }
+        
+        .back-btn {
+            position: absolute; top: 15px; left: 15px; z-index: 999;
+            background: #ff1a1a; color: #fff; border: none; padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif; font-weight: 800; border-radius: 8px; 
+            cursor: pointer; text-decoration: none; opacity: 0.8; transition: 0.3s;
+            box-shadow: 0 0 10px rgba(255, 26, 26, 0.5);
+        }
+        .back-btn:hover {
+            opacity: 1; box-shadow: 0 0 20px #ff1a1a;
+        }
+
+        iframe {
+            width: 100%; height: 100%; border: none; 
+            position: absolute; top: 0; left: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <a href="index.html" class="back-btn">⬅ Back to Home</a>
+    
+    <div id="video-wrapper"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const tmdbId = urlParams.get('id');
+        
+        if (tmdbId) {
+            // Swapped from NexStream to VidSrc to bypass the domain-lock block
+            const streamUrl = `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`;
+            
+            document.getElementById('video-wrapper').innerHTML = `<iframe src="${streamUrl}" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`;
+        } else {
+            document.getElementById('video-wrapper').innerHTML = '<h2 style="color:red; text-align:center; margin-top:20%; font-family:sans-serif;">Error: Could not load video.</h2>';
+        }
+    </script>
+
+    <!-- Your Ad Scripts -->
+    <script src="https://quge5.com/88/tag.min.js" data-zone="283318" async data-cfasync="false"></script>
+    <script>(function(s){s.dataset.zone='11842005',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11842006',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</body>
+</html>
